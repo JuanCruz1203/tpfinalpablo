@@ -20,5 +20,8 @@ require 'modelos/entrenadores.modelo.php';
 require 'controladores/especialidades.controlador.php';
 require 'modelos/especialidades.modelo.php';
 
+require 'controladores/estEntrenadores.controlador.php';
+require 'modelos/estEntrenadores.modelo.php';
+
 $plantilla = new PlantillaControlador();
 $plantilla -> verPlantilla();

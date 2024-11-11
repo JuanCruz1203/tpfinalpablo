@@ -51,8 +51,9 @@ class ControladorEntrenadores
     /*=============================================
     ELIMINAR ENTRENADOR
     =============================================*/
-    public function ctrEliminarEntrenador()
+    static public function ctrEliminarEntrenador()
     {
+        $url = PlantillaControlador::url() . "entrenadores";
         if (isset($_GET["id_entrenador"])) {
             $tabla = "entrenadores";
             $id = $_GET["id_entrenador"];
@@ -82,6 +83,7 @@ class ControladorEntrenadores
                 "id_especialidad" => $_POST["id_especialidad"]
             );
 
+            $url = PlantillaControlador::url() . "entrenadores";
             $respuesta = ModeloEntrenadores::mdlModificarEntrenador($tabla, $datos);
 
             if ($respuesta == "ok") {

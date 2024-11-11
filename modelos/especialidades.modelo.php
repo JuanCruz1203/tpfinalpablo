@@ -30,10 +30,10 @@ class ModeloEspecialidades
     {
         try {
             $stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(nombre_especialidad, descrip_especialidad) 
-            VALUES (:nombre, :descripcion)");
+            VALUES (:nombre_especialidad, :descrip_especialidad)");
 
-            $stmt->bindParam(":nombre", $datos["nombre"], PDO::PARAM_STR);
-            $stmt->bindParam(":descripcion", $datos["descripcion"], PDO::PARAM_STR);
+            $stmt->bindParam(":nombre_especialidad", $datos["nombre_especialidad"], PDO::PARAM_STR);
+            $stmt->bindParam(":descrip_especialidad", $datos["descrip_especialidad"], PDO::PARAM_STR);
 
             if ($stmt->execute()) {
                 return "ok";
@@ -65,13 +65,13 @@ class ModeloEspecialidades
     {
         try {
             $stmt = Conexion::conectar()->prepare("UPDATE $tabla SET 
-                nombre_especialidad = :nombre, 
-                descrip_especialidad = :descripcion
-                WHERE id_especialidad = :id");
+                nombre_especialidad = :nombre_especialidad, 
+                descrip_especialidad = :descrip_especialidad
+                WHERE id_especialidad = :id_especialidad");
 
-            $stmt->bindParam(":nombre", $datos["nombre"], PDO::PARAM_STR);
-            $stmt->bindParam(":descripcion", $datos["descripcion"], PDO::PARAM_STR);
-            $stmt->bindParam(":id", $datos["id_especialidad"], PDO::PARAM_INT);
+            $stmt->bindParam(":nombre_especialidad", $datos["nombre_especialidad"], PDO::PARAM_STR);
+            $stmt->bindParam(":descrip_especialidad", $datos["descrip_especialidad"], PDO::PARAM_STR);
+            $stmt->bindParam(":id_especialidad", $datos["id_especialidad"], PDO::PARAM_INT);
 
             if ($stmt->execute()) {
                 return "ok";

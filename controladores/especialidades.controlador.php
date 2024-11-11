@@ -2,30 +2,30 @@
 
 class ControladorEspecialidades
 {
-    // Mostrar Especialidades (Se mantiene igual)
+    // Mostrar Especialidades
     static public function ctrMostrarEspecialidades($item, $valor)
     {
-        $tabla = "especialidades";
+        $tabla = "especialidades"; // nombre de la tabla
         $respuesta = ModeloEspecialidades::mdlMostrarEspecialidades($tabla, $item, $valor);
         return $respuesta;
     }
 
-    // Agregar Especialidad
+    // Método para agregar una nueva especialidad
     public function ctrAgregarEspecialidad()
     {
-        // Verificar que se recibió el formulario
         if (isset($_POST["nombre_especialidad"])) {
 
             // Preparar los datos para la base de datos
-            $tabla = "especialidades";
+            $tabla = "especialidades"; // nombre de la tabla
             $datos = array(
-                "nombre" => $nombre_especialidad,
-                "descripcion" => $descripcion_especialidad
+                "nombre_especialidad" => $_POST["nombre_especialidad"],
+                "descrip_especialidad" => $_POST["descrip_especialidad"]
             );
 
-            // Enviar al modelo para agregar la especialidad
+            // Llamar al modelo para agregar la especialidad
             $respuesta = ModeloEspecialidades::mdlAgregarEspecialidad($tabla, $datos);
 
+            // Redirigir según el resultado
             $url = PlantillaControlador::url() . "especialidades";
             if ($respuesta == "ok") {
                 echo '<script>
@@ -39,45 +39,25 @@ class ControladorEspecialidades
         }
     }
 
-    // Eliminar Especialidad
-    public function ctrEliminarEspecialidad()
-    {
-        $url = PlantillaControlador::url() . "especialidades";
-        // Verificar que se recibió el id para eliminar
-        if (isset($_GET["id_especialidad"])) {
-
-            // Preparar la eliminación
-            $tabla = "especialidades";
-            $respuesta = ModeloEspecialidades::mdlEliminarEspecialidad($tabla, $id_especialidad);
-            if ($respuesta == "ok") {
-                echo '<script>
-                    fncSweetAlert("success", "La especialidad se eliminó correctamente", "' . $url . '");
-                </script>';
-            } else {
-                echo '<script>
-                    fncSweetAlert("error", "Hubo un error al eliminar la especialidad", "' . $url . '");
-                </script>';
-            }
-        }
-    }
-
-    // Modificar Especialidad
+    // Método para modificar una especialidad
     public function ctrModificarEspecialidad()
     {
-        // Verificar que se recibió el formulario para modificar
         if (isset($_POST["id_especialidad"])) {
 
             // Preparar los datos para la actualización
-            $tabla = "especialidades";
+            $tabla = "especialidades"; // nombre de la tabla
             $datos = array(
-                "id_especialidad" => $id_especialidad,
-                "nombre" => $nombre_especialidad,
-                "descripcion" => $descripcion_especialidad
+                "id_especialidad" => $_POST["id_especialidad"],
+                "nombre_especialidad" => $_POST["nombre_especialidad"],
+                "descrip_especialidad" => $_POST["descrip_especialidad"]
             );
 
-            // Enviar al modelo para actualizar
+            // Redirigir según el resultado
             $url = PlantillaControlador::url() . "especialidades";
+
+            // Llamar al modelo para modificar la especialidad
             $respuesta = ModeloEspecialidades::mdlModificarEspecialidad($tabla, $datos);
+
             if ($respuesta == "ok") {
                 echo '<script>
                     fncSweetAlert("success", "La especialidad se modificó correctamente", "' . $url . '");
@@ -89,5 +69,32 @@ class ControladorEspecialidades
             }
         }
     }
+
+    // Método para eliminar una especialidad
+    public function ctrEliminarEspecialidad()
+    {
+        $url = PlantillaControlador::url() . "especialidades";
+        if (isset($_GET["id_especialidad"])) {
+
+            // Preparar la eliminación
+            $tabla = "especialidades";
+            $datos = $_GET["id_especialidad"]; // Recibimos el ID de la especialidad a eliminar
+
+            // Llamar al modelo para eliminar la especialidad
+            $respuesta = ModeloEspecialidades::mdlEliminarEspecialidad($tabla, $datos);
+
+            // Redirigir según el resultado
+            if ($respuesta == "ok") {
+                echo '<script>
+                    fncSweetAlert("success", "La especialidad se eliminó correctamente", "' . $url . '");
+                </script>';
+            } else {
+                echo '<script>
+                    fncSweetAlert("error", "Hubo un error al eliminar la especialidad", "' . $url . '");
+                </script>';
+            }
+        }
+    }
 }
+?>
 

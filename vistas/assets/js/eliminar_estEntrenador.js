@@ -14,7 +14,7 @@ $(document).on("click", ".btnEliminarEstadoEnt", function () {
     }).then(function (result) {
       if (result.value) {
         window.location =
-          $("#url").val() + "index.php?pagina=estados_ent&id_estado_ent_eliminar=" + id_estado_ent;
+          $("#url").val() + "index.php?pagina=estEntrenadores&id_estado_ent_eliminar=" + id_estado_ent;
       }
     });
 });

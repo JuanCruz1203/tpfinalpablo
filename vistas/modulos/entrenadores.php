@@ -48,8 +48,8 @@ $entrenadores = ControladorEntrenadores::ctrMostrarEntrenadores(null, null);
                                     <td><?php echo $value["fechaContr_entrenador"]; ?></td>
                                     <td><?php echo $value["email_entrenador"]; ?></td>
                                     <td><?php echo $value["telefono_entrenador"]; ?></td>
-                                    <td><?php echo $value["id_estado_ent"]; ?></td>
-                                    <td><?php echo $value["id_especialidad"]; ?></td>
+                                    <td><?php echo $value["estado_ent"]; ?></td>
+                                    <td><?php echo $value["nombre_especialidad"]; ?></td>
 
                                     <!-- Acciones de editar y eliminar -->
                                     <td>

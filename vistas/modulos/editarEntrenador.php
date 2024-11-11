@@ -1,105 +1,93 @@
-<?php
-// Supongo que tienes controladores para los estados y especialidades, obteniendo sus valores de la base de datos
-$estados = ControladorEntrenadores::ctrMostrarEstados(); // Obtener todos los estados
-$especialidades = ControladorEspecialidades::ctrMostrarEspecialidades(); // Obtener todas las especialidades
-
-// Obtener los detalles del entrenador a editar
-$entrenador = ControladorEntrenadores::ctrMostrarEntrenadores("id_entrenador", $_GET["id_entrenador"]);
-
+<?php 
+    // Cargamos el entrenador que se está editando y las listas de especialidades y estados de los entrenadores
+    $especialidades = ControladorEspecialidades::ctrMostrarEspecialidades(null, null);
+    $estados_entrenadores = ControladorEstadosEntrenadores::ctrMostrarEstados(null, null);
 ?>
 
 <div class="col-lg-6 mt-3">
     <div class="card">
 
         <div class="card-header">
-            <h5 class="card-title mb-0">Editar Entrenador</h5>
+            <h5 class="card-title mb-0">Editar entrenador</h5>
         </div><!-- end card header -->
 
         <div class="card-body">
 
             <form method="POST">
-
-                <!-- Nombre -->
                 <div class="mb-3">
                     <label for="nombre_entrenador" class="form-label">Nombre</label>
-                    <input type="text" value="<?php echo $entrenador['nombre_entrenador']; ?>" id="nombre_entrenador" name="nombre_entrenador" class="form-control" placeholder="Nombre" required>
+                    <input type="text" id="nombre_entrenador" name="nombre_entrenador" class="form-control" placeholder="Nombre" required>
                 </div>
 
-                <!-- Apellido -->
                 <div class="mb-3">
                     <label for="apellido_entrenador" class="form-label">Apellido</label>
-                    <input type="text" value="<?php echo $entrenador['apellido_entrenador']; ?>" id="apellido_entrenador" name="apellido_entrenador" class="form-control" placeholder="Apellido" required>
+                    <input type="text" id="apellido_entrenador" name="apellido_entrenador" class="form-control" placeholder="Apellido" required>
                 </div>
 
-                <!-- DNI -->
                 <div class="mb-3">
                     <label for="dni_entrenador" class="form-label">DNI</label>
-                    <input type="text" value="<?php echo $entrenador['dni_entrenador']; ?>" id="dni_entrenador" name="dni_entrenador" class="form-control" placeholder="DNI" required>
+                    <input type="text" id="dni_entrenador" name="dni_entrenador" class="form-control" placeholder="DNI" required>
                 </div>
 
-                <!-- Fecha de Contratación -->
                 <div class="mb-3">
                     <label for="fechaContr_entrenador" class="form-label">Fecha de Contratación</label>
-                    <input type="date" value="<?php echo $entrenador['fechaContr_entrenador']; ?>" id="fechaContr_entrenador" name="fechaContr_entrenador" class="form-control" required>
+                    <input type="date" id="fechaContr_entrenador" name="fechaContr_entrenador" class="form-control" required>
                 </div>
 
-                <!-- Correo Electrónico -->
                 <div class="mb-3">
                     <label for="email_entrenador" class="form-label">Correo Electrónico</label>
-                    <input type="email" value="<?php echo $entrenador['email_entrenador']; ?>" id="email_entrenador" name="email_entrenador" class="form-control" placeholder="Correo Electrónico" required>
+                    <input type="email" id="email_entrenador" name="email_entrenador" class="form-control" placeholder="Correo Electrónico" required>
                 </div>
 
-                <!-- Teléfono -->
                 <div class="mb-3">
                     <label for="telefono_entrenador" class="form-label">Teléfono</label>
-                    <input type="text" value="<?php echo $entrenador['telefono_entrenador']; ?>" id="telefono_entrenador" name="telefono_entrenador" class="form-control" placeholder="Teléfono" required>
+                    <input type="text" id="telefono_entrenador" name="telefono_entrenador" class="form-control" placeholder="Teléfono" required>
                 </div>
 
-                <!-- Estado -->
+                <!-- Campo para el estado del entrenador -->
                 <div class="mb-3">
-                    <label for="id_estado" class="form-label">Estado</label>
-                    <select name="id_estado" id="id_estado" class="form-control" required>
-                        <option value="">Seleccione un estado</option>
-                        <?php foreach ($estados as $estado): ?>
-                            <option 
-                                <?php if ($estado["id_estado_ent"] == $entrenador["id_estado_ent"]) { ?>
-                                    selected
-                                <?php } ?>
-                                value="<?php echo $estado["id_estado_ent"]; ?>"><?php echo $estado["estado_ent"]; ?></option>
-                        <?php endforeach; ?>
+                    <label for="id_estado_ent" class="form-label">Estado</label>
+                    <select name="id_estado_ent" id="id_estado_ent" class="form-control" required>
+                        <option value="">Seleccione una opción</option>
+                        <?php
+                            foreach ($estados_entrenadores as $key => $value) {
+                                echo "<option value='{$value["id_estado_ent"]}'>{$value["estado_ent"]}</option>";
+                            }
+                        ?>
                     </select>
                 </div>
 
-                <!-- Especialidad -->
+                <!-- Campo para la especialidad del entrenador -->
                 <div class="mb-3">
                     <label for="id_especialidad" class="form-label">Especialidad</label>
                     <select name="id_especialidad" id="id_especialidad" class="form-control" required>
                         <option value="">Seleccione una especialidad</option>
-                        <?php foreach ($especialidades as $especialidad): ?>
-                            <option 
-                                <?php if ($especialidad["id_especialidad"] == $entrenador["id_especialidad"]) { ?>
-                                    selected
-                                <?php } ?>
-                                value="<?php echo $especialidad["id_especialidad"]; ?>"><?php echo $especialidad["nombre_especialidad"]; ?></option>
-                        <?php endforeach; ?>
+                        <?php
+                            foreach ($especialidades as $key => $value) {
+                                echo "<option value='{$value["id_especialidad"]}'>{$value["nombre_especialidad"]}</option>";
+                            }
+                        ?>
                     </select>
                 </div>
 
-                <!-- Campo oculto para la id del entrenador -->
-                <input type="hidden" name="id_entrenador" value="<?php echo $entrenador["id_entrenador"]; ?>">
+                <!-- Campo oculto para pasar el ID del entrenador -->
+                <input type="hidden" name="id_entrenador" value="<?php echo $_GET["id"]; ?>">
 
-                <!-- Controlador para editar el entrenador -->
+                <!-- Manejo del envío del formulario -->
                 <?php
-                $editar = new ControladorEntrenadores();
-                $editar->ctrModificarEntrenador();
+                    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                        $editar = new ControladorEntrenadores();
+                        $editar->ctrEditarEntrenador();
+                    }
                 ?>
 
-                <!-- Botón para guardar los cambios -->
+                <!-- Botón de guardar -->
                 <button class="btn btn-success" type="submit">Guardar</button>
 
             </form>
-        </div><!-- end card-body -->
+        </div><!-- end card body -->
 
     </div><!-- end card -->
 </div><!-- end col -->
+
 

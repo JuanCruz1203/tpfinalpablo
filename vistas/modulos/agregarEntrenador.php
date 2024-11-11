@@ -1,84 +1,96 @@
+<?php 
+    // Cargamos las especialidades y estados de los entrenadores
+    $especialidades = ControladorEspecialidades::ctrMostrarEspecialidades(null, null);
+    $estados_entrenadores = ControladorEstadosEntrenadores::ctrMostrarEstados(null, null);
+?>
+
 <div class="col-lg-6 mt-3">
     <div class="card">
 
         <div class="card-header">
-            <h5 class="card-title mb-0">Agregar Entrenador</h5>
+            <h5 class="card-title mb-0">Agregar entrenador</h5>
         </div><!-- end card header -->
 
         <div class="card-body">
 
-            <form method="POST">
+            <form method="POST" action="">
 
-                <!-- Nombre del entrenador -->
+                <!-- Campo para el nombre del entrenador -->
                 <div class="mb-3">
-                    <label for="nombreEntrenador" class="form-label">Nombre</label>
-                    <input type="text" id="nombreEntrenador" name="nombre_entrenador" class="form-control" placeholder="Nombre" required>
+                    <label for="example-input-normal" class="form-label">Nombre</label>
+                    <input type="text" id="example-input-normal" name="nombre_entrenador" class="form-control" placeholder="Nombre" required>
                 </div>
 
-                <!-- Apellido del entrenador -->
+                <!-- Campo para el apellido del entrenador -->
                 <div class="mb-3">
-                    <label for="apellidoEntrenador" class="form-label">Apellido</label>
-                    <input type="text" id="apellidoEntrenador" name="apellido_entrenador" class="form-control" placeholder="Apellido" required>
+                    <label for="example-input-normal" class="form-label">Apellido</label>
+                    <input type="text" id="example-input-normal" name="apellido_entrenador" class="form-control" placeholder="Apellido" required>
                 </div>
 
-                <!-- DNI del entrenador -->
+                <!-- Campo para el DNI del entrenador -->
                 <div class="mb-3">
-                    <label for="dniEntrenador" class="form-label">DNI</label>
-                    <input type="text" id="dniEntrenador" name="dni_entrenador" class="form-control" placeholder="DNI" required>
+                    <label for="example-input-normal" class="form-label">DNI</label>
+                    <input type="text" id="example-input-normal" name="dni_entrenador" class="form-control" placeholder="DNI" required>
                 </div>
 
-                <!-- Fecha de contratación -->
+                <!-- Campo para la fecha de contratación del entrenador -->
                 <div class="mb-3">
-                    <label for="fechaContrEntrenador" class="form-label">Fecha de Contratación</label>
-                    <input type="date" id="fechaContrEntrenador" name="fechaContr_entrenador" class="form-control" required>
+                    <label for="example-input-normal" class="form-label">Fecha de Contratación</label>
+                    <input type="date" id="example-input-normal" name="fechaContr_entrenador" class="form-control" required>
                 </div>
 
-                <!-- Correo electrónico -->
+                <!-- Campo para el correo electrónico del entrenador -->
                 <div class="mb-3">
-                    <label for="emailEntrenador" class="form-label">Correo Electrónico</label>
-                    <input type="email" id="emailEntrenador" name="email_entrenador" class="form-control" placeholder="Correo Electrónico" required>
+                    <label for="example-input-normal" class="form-label">Correo Electrónico</label>
+                    <input type="email" id="example-input-normal" name="email_entrenador" class="form-control" placeholder="Correo Electrónico" required>
                 </div>
 
-                <!-- Teléfono -->
+                <!-- Campo para el teléfono del entrenador -->
                 <div class="mb-3">
-                    <label for="telefonoEntrenador" class="form-label">Teléfono</label>
-                    <input type="text" id="telefonoEntrenador" name="telefono_entrenador" class="form-control" placeholder="Teléfono" required>
+                    <label for="example-input-normal" class="form-label">Teléfono</label>
+                    <input type="text" id="example-input-normal" name="telefono_entrenador" class="form-control" placeholder="Teléfono" required>
                 </div>
 
-                <!-- Selección de estado -->
+                <!-- Campo para el estado del entrenador -->
                 <div class="mb-3">
-                    <label for="idEstado" class="form-label">Estado</label>
-                    <select name="id_estado" id="idEstado" class="form-control" required>
-                        <option value="">Seleccione un estado</option>
-                        <?php foreach ($estados as $estado): ?>
-                            <option value="<?php echo $estado["id_estado_ent"]; ?>"><?php echo $estado["estado_ent"]; ?></option>
-                        <?php endforeach; ?>
+                    <label for="example-input-normal" class="form-label">Estado</label>
+                    <select name="id_estado_ent" id="id_estado_ent" class="form-control" required>
+                        <option value="">Seleccione una opción</option>
+                        <?php
+                            foreach ($estados_entrenadores as $key => $value) { ?>
+                                <option value="<?php echo $value["id_estado_ent"]; ?>"><?php echo $value["estado_ent"]; ?></option>
+                            <?php } ?>
                     </select>
                 </div>
 
-                <!-- Selección de especialidad -->
+                <!-- Campo para la especialidad del entrenador -->
                 <div class="mb-3">
-                    <label for="idEspecialidad" class="form-label">Especialidad</label>
-                    <select name="id_especialidad" id="idEspecialidad" class="form-control" required>
+                    <label for="example-input-normal" class="form-label">Especialidad</label>
+                    <select name="id_especialidad" id="id_especialidad" class="form-control" required>
                         <option value="">Seleccione una especialidad</option>
-                        <?php foreach ($especialidades as $especialidad): ?>
-                            <option value="<?php echo $especialidad["id_especialidad"]; ?>"><?php echo $especialidad["nombre_especialidad"]; ?></option>
-                        <?php endforeach; ?>
+                        <?php
+                            foreach ($especialidades as $key => $value) { ?>
+                                <option value="<?php echo $value["id_especialidad"]; ?>"><?php echo $value["nombre_especialidad"]; ?></option>
+                            <?php } ?>
                     </select>
                 </div>
 
-                <!-- Botón para guardar -->
+                <?php
+                    // Aquí se maneja el envío del formulario
+                    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                        $agregar = new ControladorEntrenadores();
+                        $agregar->ctrAgregarEntrenador();
+                    }
+                ?>
+                
+                <!-- Botón para enviar el formulario -->
                 <button class="btn btn-success" type="submit">Guardar</button>
 
             </form>
-
-        </div><!-- end card-body -->
+        </div><!-- end card body -->
 
     </div><!-- end card -->
+
 </div><!-- end col -->
 
-<?php
-// Controlador para agregar el entrenador
-$agregar = new ControladorEntrenadores();
-$agregar->ctrAgregarEntrenador(); 
-?>
+

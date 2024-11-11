@@ -66,7 +66,7 @@ class ControladorEstadosEntrenadores
 
     static public function ctrEliminarEstado()
     {
-        $url = PlantillaControlador::url() . "estados_ent";
+        $url = PlantillaControlador::url() . "estEntrenadores";
         if (isset($_GET["id_estado_ent_eliminar"])) {
             $tabla = "estados_entrenadores";
             $datos = $_GET["id_estado_ent_eliminar"];

@@ -56,7 +56,7 @@ $url = PlantillaControlador::url()
                 <div class="content">
                     
                     <?php
-                    $paginasPermitidas = ["inicio", "agregar_cliente", "agregarEntrenador", "agregarEspecialidad", "agregarEstEntrenador", "editar_cliente", "editarEntrenador", "editarEspecialidad", "editarEstEntrenador", "clientes", "entrenadores", "especialidades", "estEntrenadores", "editar", "salir"];
+                    $paginasPermitidas = ["inicio", "agregar_cliente", "agregarMetPago", "agregarEntrenador", "agregarEspecialidad", "agregarEstEntrenador", "editarMetPago","editar_cliente", "editarEntrenador", "editarEspecialidad", "editarEstEntrenador", "clientes", "entrenadores", "especialidades", "estEntrenadores", "metodosPago", "editar", "salir"];
                     if (isset($_GET["pagina"]) && in_array(explode("/", $_GET["pagina"])[0], $paginasPermitidas)) {
                         include "vistas/modulos/" . explode("/", $_GET["pagina"])[0] . ".php";
                     } else {
@@ -85,7 +85,7 @@ $url = PlantillaControlador::url()
         <script src="<?php echo $url; ?>vistas/assets/js/eliminar_entrenador.js"></script>
         <script src="<?php echo $url; ?>vistas/assets/js/eliminar_especialidad.js"></script>
         <script src="<?php echo $url; ?>vistas/assets/js/eliminar_estEntrenador.js"></script>
-
+        <script src="<?php echo $url; ?>vistas/assets/js/eliminar_metPago.js"></script>
         
     </body>
 

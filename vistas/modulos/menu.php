@@ -54,6 +54,13 @@
                         <span> Estado Entrenadores </span>
                     </a>
                 </li>
+
+                <li>
+                    <a href="<?php echo $url; ?>metodosPago">
+                        <i data-feather="cash"></i>                     
+                        <span> Metodos de Pago </span>
+                    </a>
+                </li>
                 
             </ul>
 
